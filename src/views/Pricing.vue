@@ -96,7 +96,7 @@
                       v-for="type in transportTypes"
                       :key="type.value"
                       type="button"
-                      @click="quoteForm.transportType = type.value"
+                      @click="selectTransportType(type.value)"
                       class="flex items-center justify-center p-4 border-2 rounded-lg transition-all duration-200"
                       :class="quoteForm.transportType === type.value 
                         ? 'border-blue-500 bg-blue-50 text-blue-700' 
@@ -256,11 +256,11 @@
                       </div>
                       <div class="flex justify-between">
                         <span class="text-gray-600">Mode:</span>
-                        <span class="font-medium">{{ getTransportLabel(store.currentQuote?.transportType) }}</span>
+                        <span class="font-medium">{{ getTransportLabel(store.currentQuote?.transportType || '') }}</span>
                       </div>
                       <div class="flex justify-between">
                         <span class="text-gray-600">Priorité:</span>
-                        <span class="font-medium">{{ getPriorityLabel(store.currentQuote?.priority) }}</span>
+                        <span class="font-medium">{{ getPriorityLabel(store.currentQuote?.priority || '') }}</span>
                       </div>
                     </div>
                   </div>
@@ -334,16 +334,16 @@ import {
 } from 'lucide-vue-next'
 
 const store = useMainStore()
-const quoteResult = ref(null)
+const quoteResult = ref<any>(null)
 
 const quoteForm = reactive({
   origin: '',
   destination: '',
-  weight: null,
+  weight: null as number | null,
   dimensions: {
-    length: null,
-    width: null,
-    height: null
+    length: null as number | null,
+    width: null as number | null,
+    height: null as number | null
   },
   transportType: 'ground' as 'air' | 'ground' | 'sea',
   priority: 'standard' as 'standard' | 'express' | 'urgent',
@@ -417,13 +417,33 @@ const priorities = [
 ]
 
 const selectTransportType = (type: string) => {
-  quoteForm.transportType = type as 'air' | 'ground' | 'sea'
+  if (type === 'air' || type === 'ground' || type === 'sea') {
+    quoteForm.transportType = type
+  }
   document.getElementById('quote-simulator')?.scrollIntoView({ behavior: 'smooth' })
 }
 
 const calculateQuote = async () => {
   try {
-    const result = await store.calculateQuote(quoteForm as any)
+    // Validation des champs requis
+    if (!quoteForm.origin || !quoteForm.destination || !quoteForm.weight) {
+      console.error('Veuillez remplir tous les champs obligatoires')
+      return
+    }
+    
+    const result = await store.calculateQuote({
+      origin: quoteForm.origin,
+      destination: quoteForm.destination,
+      weight: quoteForm.weight,
+      dimensions: {
+        length: quoteForm.dimensions.length || 0,
+        width: quoteForm.dimensions.width || 0,
+        height: quoteForm.dimensions.height || 0
+      },
+      transportType: quoteForm.transportType,
+      priority: quoteForm.priority,
+      packageType: quoteForm.packageType
+    })
     quoteResult.value = result
   } catch (error) {
     console.error('Erreur lors du calcul du devis:', error)
@@ -445,11 +465,11 @@ const resetQuote = () => {
 
 const getTransportLabel = (type: string) => {
   const transport = transportTypes.find(t => t.value === type)
-  return transport ? transport.label : type
+  return transport?.label || type
 }
 
 const getPriorityLabel = (priority: string) => {
   const p = priorities.find(pr => pr.value === priority)
-  return p ? p.label : priority
+  return p?.label || priority
 }
 </script>

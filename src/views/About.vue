@@ -179,8 +179,7 @@ import {
   User,
   Award,
   Globe,
-  CheckCircle,
-  Users
+  CheckCircle
 } from 'lucide-vue-next'
 
 const values = [

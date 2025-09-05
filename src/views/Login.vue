@@ -171,18 +171,14 @@ import { useMainStore } from '../stores/main'
 
 import { 
   User, 
-  Lock, 
-  Info,
-  AlertCircle,
-  Eye,
-  EyeOff
+  Lock
 } from 'lucide-vue-next'
 
 const router = useRouter()
 const store = useMainStore()
 
 const isLoading = ref(false)
-const showPassword = ref(false)
+
 const emailError = ref('')
 const passwordError = ref('')
 const generalError = ref('')
