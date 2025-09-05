@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <div 
       class="relative text-white py-20 md:py-28 bg-cover bg-center"
-      style="background-image: url('src/assets/img/auth_hero.jpg')"
+      :style="`background-image: url(${authHeroImage});`"
     >
       <div class="absolute inset-0 bg-gradient-to-r from-blue-800 to-black opacity-70"></div>
       <div class="relative container mx-auto px-4 text-center">
@@ -168,6 +168,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMainStore } from '../stores/main'
+import authHeroImage from '../assets/img/auth_hero.jpg'
 
 import { 
   User, 
