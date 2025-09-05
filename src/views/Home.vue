@@ -412,6 +412,181 @@
       </div>
     </section>
 
+    <!-- Events & Achievements Carousel Section -->
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Nos Événements & Distinctions</h2>
+          <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-7">
+            Découvrez les moments forts de Faso Fret : nos partenariats, récompenses et engagements qui font notre fierté
+          </p>
+        </div>
+
+        <!-- Events Carousel -->
+        <div class="relative max-w-7xl mx-auto">
+          <!-- Carousel Container -->
+          <div 
+            class="overflow-hidden rounded-2xl shadow-xl bg-white border border-gray-100"
+            @mouseenter="pauseAutoPlay"
+            @mouseleave="resumeAutoPlay"
+          >
+            <div 
+              class="flex transition-all duration-1000 ease-in-out"
+              :style="`transform: translateX(-${currentSlide * 100}%)`"
+            >
+              <div 
+                v-for="event in companyEvents" 
+                :key="event.id"
+                class="w-full flex-shrink-0"
+              >
+                <div class="bg-white overflow-hidden hover:bg-gray-50 transition-colors duration-300">
+                  <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[500px]">
+                    <!-- Image Section -->
+                    <div class="relative h-80 lg:h-full overflow-hidden">
+                      <img 
+                        :src="event.image"
+                        :alt="event.title"
+                        class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      >
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                      
+                      <!-- Event Type Badge -->
+                      <div class="absolute top-4 left-4">
+                        <span :class="event.typeColor" class="px-3 py-1 rounded-full text-xs font-medium flex items-center backdrop-blur-sm">
+                          <component :is="event.icon" class="w-3 h-3 mr-1" />
+                          {{ event.type }}
+                        </span>
+                      </div>
+                      
+                      <!-- Date Badge -->
+                      <div class="absolute bottom-4 right-4">
+                        <span class="bg-white/90 backdrop-blur-sm text-gray-800 px-2 py-1 rounded text-xs font-medium">
+                          {{ event.date }}
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <!-- Content Section -->
+                    <div class="p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-br from-white to-gray-50">
+                      <h3 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-8">{{ event.title }}</h3>
+                      <p class="text-gray-600 mb-6 leading-6 text-base lg:text-lg">{{ event.description }}</p>
+                      
+                      <!-- Event Details -->
+                      <div class="space-y-2 mb-4">
+                        <div v-if="event.location" class="flex items-center text-gray-600 text-sm">
+                          <MapPin class="w-4 h-4 mr-2 text-gray-400" />
+                          <span>{{ event.location }}</span>
+                        </div>
+                        <div v-if="event.organizer" class="flex items-center text-gray-600 text-sm">
+                          <User class="w-4 h-4 mr-2 text-gray-400" />
+                          <span>{{ event.organizer }}</span>
+                        </div>
+                        <div v-if="event.achievement" class="flex items-center text-yellow-700 text-sm">
+                          <Award class="w-4 h-4 mr-2 text-yellow-500" />
+                          <span class="font-medium">{{ event.achievement }}</span>
+                        </div>
+                      </div>
+                      
+                      <!-- Impact Stats -->
+                      <div v-if="event.impact" class="grid grid-cols-2 gap-6 mt-6">
+                        <div v-for="stat in event.impact" :key="stat.label" class="text-center bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                          <div class="text-2xl font-bold text-blue-600 mb-1">{{ stat.value }}</div>
+                          <div class="text-sm text-gray-600 font-medium">{{ stat.label }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Carousel Navigation -->
+          <div class="flex justify-center items-center mt-8 space-x-8">
+            <!-- Previous Button -->
+            <button 
+              @click="previousSlide"
+              class="group relative w-14 h-14 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center hover:border-blue-500 hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 shadow-md"
+            >
+              <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <!-- Custom Left Arrow -->
+              <div class="relative z-10 flex items-center justify-center">
+                <svg 
+                  class="w-6 h-6 text-gray-600 group-hover:text-white transition-all duration-300 transform group-hover:-translate-x-0.5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </div>
+              <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-0 group-hover:opacity-20 blur transition-all duration-300"></div>
+            </button>
+            
+            <!-- Slide Indicators with Counter -->
+            <div class="flex flex-col items-center space-y-3">
+              <!-- Counter -->
+              <div class="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                {{ currentSlide + 1 }} / {{ companyEvents.length }}
+              </div>
+              
+              <!-- Indicators -->
+              <div class="flex space-x-2">
+                <button
+                  v-for="(event, index) in companyEvents"
+                  :key="event.id"
+                  @click="goToSlide(index)"
+                  class="relative group"
+                >
+                  <div 
+                    class="h-3 rounded-full transition-all duration-500 ease-out"
+                    :class="currentSlide === index 
+                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 w-8 shadow-lg' 
+                      : 'bg-gray-300 hover:bg-gray-400 w-3 hover:w-4'"
+                  ></div>
+                  <div 
+                    v-if="currentSlide === index"
+                    class="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-30 blur-sm"
+                  ></div>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Next Button -->
+            <button 
+              @click="nextSlide"
+              class="group relative w-14 h-14 bg-white border-2 border-gray-200 rounded-full flex items-center justify-center hover:border-blue-500 hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 shadow-md"
+            >
+              <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <!-- Custom Right Arrow -->
+              <div class="relative z-10 flex items-center justify-center">
+                <svg 
+                  class="w-6 h-6 text-gray-600 group-hover:text-white transition-all duration-300 transform group-hover:translate-x-0.5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+              <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-0 group-hover:opacity-20 blur transition-all duration-300"></div>
+            </button>
+          </div>
+          
+          <!-- Auto-play Status (moved below) -->
+          <div class="flex justify-center mt-4">
+            <div class="flex items-center text-xs text-gray-500 bg-gray-50 px-3 py-2 rounded-full border">
+              <div 
+                class="w-2 h-2 rounded-full mr-2 transition-all duration-300"
+                :class="isAutoPlaying ? 'bg-green-500 animate-pulse shadow-sm' : 'bg-gray-400'"
+              ></div>
+              <span class="font-medium">{{ isAutoPlaying ? 'Défilement automatique' : 'En pause' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="py-20 bg-blue-900 text-white">
       <div class="container mx-auto px-4 text-center">
@@ -474,9 +649,10 @@ import {
   User,
   Phone,
   MapPin,
-  Mail
+  Mail,
+  Award
 } from 'lucide-vue-next'
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import camionColisVideo from '../assets/video/camion_colis.mp4'
 import backgroundImage from '../assets/img/pexels-kelly-12530458.jpg'
@@ -518,6 +694,153 @@ const handleQuickPickup = () => {
   })
   router.push(`/pickup?${params.toString()}`)
 }
+
+// Events Carousel Data & State
+const currentSlide = ref(0)
+const isAutoPlaying = ref(true)
+const autoPlayInterval = ref<number | null>(null)
+
+const companyEvents = [
+  {
+    id: 1,
+    type: 'Prix & Distinction',
+    typeColor: 'bg-yellow-500 text-white',
+    title: 'Faso Fret remporte le Prix de l\'Excellence Logistique 2024',
+    description: 'Nous sommes fiers d\'avoir été récompensés pour notre innovation et notre service client exceptionnel lors du Salon International du Transport de Ouagadougou.',
+    date: '15 Nov 2024',
+    location: 'Ouagadougou, Burkina Faso',
+    organizer: 'Chambre de Commerce du Burkina Faso',
+    achievement: 'Prix de l\'Excellence Logistique 2024',
+    image: 'https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=800',
+    icon: Award,
+    impact: [
+      { value: '1er', label: 'Prix National' },
+      { value: '98%', label: 'Satisfaction Client' }
+    ]
+  },
+  {
+    id: 2,
+    type: 'Sponsoring',
+    typeColor: 'bg-blue-500 text-white',
+    title: 'Partenaire Officiel du Marathon International de Ouagadougou',
+    description: 'Faso Fret est fier de sponsoriser cet événement sportif majeur, démontrant notre engagement envers la communauté et le développement du sport au Burkina Faso.',
+    date: '20 Oct 2024',
+    location: 'Ouagadougou, Burkina Faso',
+    organizer: 'Fédération Burkinabè d\'Athlétisme',
+    image: 'https://images.pexels.com/photos/2402777/pexels-photo-2402777.jpeg?auto=compress&cs=tinysrgb&w=800',
+    icon: Star,
+    impact: [
+      { value: '5000+', label: 'Participants' },
+      { value: '50K€', label: 'Sponsoring' }
+    ]
+  },
+  {
+    id: 3,
+    type: 'Certification',
+    typeColor: 'bg-green-500 text-white',
+    title: 'Certification ISO 9001:2015 - Management de la Qualité',
+    description: 'Obtention de la certification internationale ISO 9001:2015, reconnaissance de notre système de management de la qualité et de notre engagement envers l\'excellence.',
+    date: '5 Sep 2024',
+    location: 'Audit International',
+    organizer: 'Bureau Veritas Certification',
+    achievement: 'Certification ISO 9001:2015',
+    image: 'https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&cs=tinysrgb&w=800',
+    icon: Shield,
+    impact: [
+      { value: '100%', label: 'Conformité' },
+      { value: '3 ans', label: 'Validité' }
+    ]
+  },
+  {
+    id: 4,
+    type: 'Événement Corporate',
+    typeColor: 'bg-purple-500 text-white',
+    title: 'Inauguration de notre Nouvelle Plateforme Logistique',
+    description: 'Événement d\'inauguration de notre centre logistique de 5000m² en présence des autorités locales et de nos partenaires stratégiques.',
+    date: '12 Août 2024',
+    location: 'Zone Industrielle, Ouagadougou',
+    organizer: 'Faso Fret',
+    image: 'https://images.pexels.com/photos/906494/pexels-photo-906494.jpeg?auto=compress&cs=tinysrgb&w=800',
+    icon: Package,
+    impact: [
+      { value: '5000m²', label: 'Surface' },
+      { value: '200+', label: 'Invités' }
+    ]
+  },
+  {
+    id: 5,
+    type: 'Sponsoring',
+    typeColor: 'bg-orange-500 text-white',
+    title: 'Soutien à la Foire Internationale de l\'Artisanat de Ouagadougou',
+    description: 'Faso Fret accompagne les artisans locaux en offrant des services de transport gratuits pour leurs œuvres, favorisant le rayonnement de l\'artisanat burkinabè.',
+    date: '25 Juil 2024',
+    location: 'FIAO, Ouagadougou',
+    organizer: 'Ministère de l\'Artisanat',
+    image: 'https://images.pexels.com/photos/1427541/pexels-photo-1427541.jpeg?auto=compress&cs=tinysrgb&w=800',
+    icon: Globe,
+    impact: [
+      { value: '500+', label: 'Artisans Aidés' },
+      { value: 'Gratuit', label: 'Transport Offert' }
+    ]
+  }
+]
+
+// Carousel Navigation Functions
+const nextSlide = () => {
+  if (currentSlide.value < companyEvents.length - 1) {
+    currentSlide.value++
+  } else {
+    currentSlide.value = 0 // Loop back to first slide
+  }
+}
+
+const previousSlide = () => {
+  if (currentSlide.value > 0) {
+    currentSlide.value--
+  } else {
+    currentSlide.value = companyEvents.length - 1 // Loop to last slide
+  }
+}
+
+const goToSlide = (index: number) => {
+  currentSlide.value = index
+}
+
+// Auto-play Functions
+const startAutoPlay = () => {
+  if (autoPlayInterval.value) {
+    clearInterval(autoPlayInterval.value)
+  }
+  autoPlayInterval.value = setInterval(() => {
+    if (isAutoPlaying.value) {
+      nextSlide()
+    }
+  }, 4000) // Change slide every 4 seconds
+}
+
+const stopAutoPlay = () => {
+  if (autoPlayInterval.value) {
+    clearInterval(autoPlayInterval.value)
+    autoPlayInterval.value = null
+  }
+}
+
+const pauseAutoPlay = () => {
+  isAutoPlaying.value = false
+}
+
+const resumeAutoPlay = () => {
+  isAutoPlaying.value = true
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  startAutoPlay()
+})
+
+onUnmounted(() => {
+  stopAutoPlay()
+})
 
 const services = [
   {
