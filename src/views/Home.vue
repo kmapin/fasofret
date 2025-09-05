@@ -5,7 +5,7 @@
       <!-- Realistic Freight Background -->
       <div 
         class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
-        style="background-image: url('/src/assets/img/pexels-kelly-12530458.jpg');"
+        :style="`background-image: url(${backgroundImage});`"
       ></div>
       
       <!-- Animated Logistics Elements -->
@@ -479,6 +479,7 @@ import {
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import camionColisVideo from '../assets/video/camion_colis.mp4'
+import backgroundImage from '../assets/img/pexels-kelly-12530458.jpg'
 import { useMainStore } from '../stores/main'
 
 const router = useRouter()
