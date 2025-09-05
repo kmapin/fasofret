@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-gray-900 text-white">
     <div class="container mx-auto px-4 py-12">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 footer-content">
         <!-- Company Info -->
         <div class="col-span-1 md:col-span-2">
           <div class="flex items-center space-x-3 mb-4">

@@ -1,81 +1,18 @@
 <template>
   <div class="min-h-screen pt-20">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-10">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">Tarifs & Simulateur</h1>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6">Tarifs & Simulateur</h1>
           <p class="text-xl text-blue-100">
             Découvrez nos tarifs transparents et obtenez un devis personnalisé en quelques clics
           </p>
         </div>
       </div>
     </section>
-
-    <!-- Pricing Tables -->
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Tarifs Standards</h2>
-          <p class="text-xl text-gray-600">
-            Prix indicatifs par kilogramme selon le mode de transport
-          </p>
-          <div class="mt-6 bg-orange-100 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto">
-            <p class="text-orange-800">
-              <Info class="w-5 h-5 inline mr-2" />
-              Ces tarifs sont donnés à titre indicatif. Utilisez notre simulateur ci-dessous pour obtenir un devis précis et personnalisé.
-            </p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div 
-            v-for="pricing in pricingData" 
-            :key="pricing.type"
-            class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-          >
-            <div class="relative h-48 overflow-hidden">
-              <img 
-                :src="pricing.image"
-                :alt="pricing.title"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              >
-              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-              <div class="absolute bottom-4 left-4">
-                <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
-                  <component :is="pricing.icon" class="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
-            
-            <div class="p-8">
-              <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ pricing.title }}</h3>
-              <p class="text-gray-600 mb-6">{{ pricing.description }}</p>
-              
-              <div class="space-y-4 mb-6">
-                <div v-for="tier in pricing.tiers" :key="tier.name" class="border rounded-lg p-4">
-                  <div class="flex justify-between items-center mb-2">
-                    <span class="font-semibold text-gray-900">{{ tier.name }}</span>
-                    <span class="text-lg font-bold text-blue-600">{{ tier.price }}€/kg</span>
-                  </div>
-                  <p class="text-sm text-gray-500">{{ tier.description }}</p>
-                </div>
-              </div>
-
-              <button 
-                @click="selectTransportType(pricing.type)"
-                class="w-full bg-blue-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-              >
-                Choisir ce Mode
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quote Simulator -->
-    <section class="py-20 bg-gray-50">
+ <!-- Quote Simulator -->
+ <section class="py-20 bg-gray-50">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12">
@@ -318,6 +255,69 @@
         </div>
       </div>
     </section>
+    <!-- Pricing Tables -->
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Tarifs Standards</h2>
+          <p class="text-xl text-gray-600">
+            Prix indicatifs par kilogramme selon le mode de transport
+          </p>
+          <div class="mt-6 bg-orange-100 border border-orange-200 rounded-lg p-4 max-w-2xl mx-auto">
+            <p class="text-orange-800">
+              <Info class="w-5 h-5 inline mr-2" />
+              Ces tarifs sont donnés à titre indicatif. Utilisez notre simulateur ci-dessous pour obtenir un devis précis et personnalisé.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div 
+            v-for="pricing in pricingData" 
+            :key="pricing.type"
+            class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+          >
+            <div class="relative h-48 overflow-hidden">
+              <img 
+                :src="pricing.image"
+                :alt="pricing.title"
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              >
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div class="absolute bottom-4 left-4">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                  <component :is="pricing.icon" class="w-6 h-6 text-white" />
+                </div>
+              </div>
+            </div>
+            
+            <div class="p-8">
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ pricing.title }}</h3>
+              <p class="text-gray-600 mb-6">{{ pricing.description }}</p>
+              
+              <div class="space-y-4 mb-6">
+                <div v-for="tier in pricing.tiers" :key="tier.name" class="border rounded-lg p-4">
+                  <div class="flex justify-between items-center mb-2">
+                    <span class="font-semibold text-gray-900">{{ tier.name }}</span>
+                    <span class="text-lg font-bold text-blue-600">{{ tier.price }}€/kg</span>
+                  </div>
+                  <p class="text-sm text-gray-500">{{ tier.description }}</p>
+                </div>
+              </div>
+
+              <button 
+                @click="selectTransportType(pricing.type)"
+                class="w-full bg-blue-600 text-white py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+              >
+                Choisir ce Mode
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
   </div>
 </template>
 

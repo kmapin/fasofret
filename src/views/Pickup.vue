@@ -1,13 +1,13 @@
 <template>
   <div class="min-h-screen pt-20">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-10">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
           <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
             <Home class="w-8 h-8 text-white" />
           </div>
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">Enlèvement à Domicile</h1>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6">Enlèvement à Domicile</h1>
           <p class="text-xl text-blue-100">
             Service d'enlèvement de vos colis directement chez vous en Île-de-France
           </p>

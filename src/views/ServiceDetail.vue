@@ -2,11 +2,11 @@
   <div class="min-h-screen pt-20" v-if="service">
     <!-- Hero Section -->
     <section class="relative overflow-hidden">
-      <div class="bg-gradient-to-br h-96 flex items-center" :class="service.gradient">
+      <div class="bg-gradient-to-br py-10 flex items-center" :class="service.gradient">
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto text-center text-white">
-            <component :is="service.icon" class="w-24 h-24 mx-auto mb-6 opacity-90" />
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ service.title }}</h1>
+            <component :is="service.icon" class="w-24 h-12 mx-auto mb-6 opacity-90" />
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">{{ service.title }}</h1>
             <p class="text-xl text-opacity-90">{{ service.subtitle }}</p>
           </div>
         </div>

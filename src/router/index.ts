@@ -8,6 +8,7 @@ import Contact from '../views/Contact.vue'
 import ServiceDetail from '../views/ServiceDetail.vue'
 import Pickup from '../views/Pickup.vue'
 import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import ManagerDashboard from '../views/ManagerDashboard.vue'
 
@@ -62,6 +63,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   },
   {
     path: '/dashboard',

@@ -1,13 +1,13 @@
 <template>
   <div class="min-h-screen pt-20">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-purple-900 to-purple-700 text-white py-20">
+    <section class="bg-gradient-to-r from-purple-900 via-purple-800 to-purple-700 text-white py-10" style="background: linear-gradient(to right, #581c87, #6b21a8, #7c3aed);">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
           <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
             <ShoppingCart class="w-8 h-8 text-white" />
           </div>
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">Service d'Achat Délégué</h1>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6">Service d'Achat Délégué</h1>
           <p class="text-xl text-purple-100">
             Nous achetons pour vous sur vos sites préférés et nous nous occupons de la livraison
           </p>

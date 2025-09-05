@@ -1,10 +1,10 @@
 <template>
   <div class="min-h-screen pt-20">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+    <section class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-10">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6">Suivi d'acheminement</h1>
+          <h1 class="text-3xl md:text-4xl font-bold mb-6">Suivi d'acheminement</h1>
           <p class="text-xl text-blue-100">
             Suivez vos expéditions en temps réel grâce à notre système de tracking avancé
           </p>

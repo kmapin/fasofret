@@ -569,7 +569,7 @@ input:focus, textarea:focus, select:focus {
 button {
   border: none;
   border-radius: 0.5rem;
-  padding: 0.75rem 1.5rem;
+ /*  padding: 0.75rem 1.5rem; */
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -708,3 +708,8 @@ html {
 .animation-delay-0 { animation-delay: 0s; }
 .animation-delay-500 { animation-delay: 0.5s; }
 .animation-delay-1000 { animation-delay: 1s; }
+
+/* Footer */
+.footer-content {
+  margin-top: 15px;
+}
