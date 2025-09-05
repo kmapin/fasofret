@@ -474,8 +474,7 @@ import {
   User,
   Phone,
   MapPin,
-  Mail,
-  Calculator
+  Mail
 } from 'lucide-vue-next'
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'

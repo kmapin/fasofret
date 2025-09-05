@@ -650,26 +650,14 @@ import { useRouter } from 'vue-router'
 import { useMainStore } from '../stores/main'
 import { 
   Package, 
-  CheckCircle, 
   Calendar, 
-  Euro, 
   LogOut, 
-  Calculator, 
-  Home, 
-  Search, 
   Plane, 
   Truck, 
   Ship, 
-  Phone, 
-  Mail, 
   X,
   History,
-  MapPin,
-  Eye,
-  ArrowRight,
-  Clock,
-  AlertCircle,
-  RefreshCw
+  MapPin
 } from 'lucide-vue-next'
 
 const router = useRouter()
@@ -679,7 +667,7 @@ const activeTab = ref('history')
 const showTrackingModal = ref(false)
 const quickTrackingNumber = ref('')
 const showTrackingDetail = ref(false)
-const selectedTracking = ref(null)
+const selectedTracking = ref<any>(null)
 
 const tabs = [
   { id: 'history', label: 'Historique', icon: History, color: 'blue' },
@@ -694,7 +682,16 @@ const stats = reactive({
   savings: 1250
 })
 
-const recentShipments = ref([
+interface Shipment {
+  id: number
+  trackingNumber: string
+  destination: string
+  status: string
+  type: string
+  date: string
+}
+
+const recentShipments = ref<Shipment[]>([
   {
     id: 1,
     trackingNumber: 'TP123456789FR',
@@ -721,7 +718,14 @@ const recentShipments = ref([
   }
 ])
 
-const shipmentHistory = ref([
+interface HistoryItem {
+  id: number
+  trackingNumber: string
+  destination: string
+  status: string
+}
+
+const shipmentHistory = ref<HistoryItem[]>([
   { id: 1, trackingNumber: 'TP123456789FR', destination: 'Madrid, Espagne', status: 'En transit' },
   { id: 2, trackingNumber: 'TP987654321FR', destination: 'Londres, UK', status: 'Livré' },
   { id: 3, trackingNumber: 'TP456789123FR', destination: 'New York, USA', status: 'En préparation' },
@@ -729,7 +733,15 @@ const shipmentHistory = ref([
   { id: 5, trackingNumber: 'TP321654987FR', destination: 'Rome, Italie', status: 'Livré' }
 ])
 
-const upcomingPickups = ref([
+interface Pickup {
+  id: number
+  date: string
+  timeSlot: string
+  address: string
+  status: string
+}
+
+const upcomingPickups = ref<Pickup[]>([
   {
     id: 1,
     date: '15 Janvier 2025',
@@ -753,7 +765,17 @@ const upcomingPickups = ref([
   }
 ])
 
-const activeTrackings = ref([
+interface ActiveTracking {
+  id: number
+  trackingNumber: string
+  destination: string
+  currentLocation: string
+  status: string
+  lastUpdate: string
+  progress: number
+}
+
+const activeTrackings = ref<ActiveTracking[]>([
   {
     id: 1,
     trackingNumber: 'TP123456789FR',
@@ -774,7 +796,16 @@ const activeTrackings = ref([
   }
 ])
 
-const trackingTimeline = ref([
+interface TimelineItem {
+  title: string
+  description: string
+  location: string
+  time: string
+  icon: any
+  completed: boolean
+}
+
+const trackingTimeline = ref<TimelineItem[]>([
   {
     title: 'Colis expédié',
     description: 'Votre colis a été pris en charge par notre équipe',
@@ -850,9 +881,7 @@ const quickTrack = () => {
   quickTrackingNumber.value = ''
 }
 
-const viewTracking = (trackingNumber: string) => {
-  router.push(`/tracking?number=${trackingNumber}`)
-}
+
 
 const showTrackingDetails = (tracking: any) => {
   selectedTracking.value = tracking
