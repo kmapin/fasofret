@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <div 
       class="relative text-white py-20 md:py-28 bg-cover bg-center"
-      style="background-image: url('src/assets/auth_hero.jpg')"
+      style="background-image: url('src/assets/img/auth_hero.jpg')"
     >
       <div class="absolute inset-0 bg-gradient-to-r from-blue-800 to-black opacity-70"></div>
       <div class="relative container mx-auto px-4 text-center">

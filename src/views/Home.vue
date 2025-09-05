@@ -5,7 +5,7 @@
       <!-- Realistic Freight Background -->
       <div 
         class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
-        style="background-image: url('/src/assets/pexels-kelly-12530458.jpg');"
+        style="background-image: url('/src/assets/img/pexels-kelly-12530458.jpg');"
       ></div>
       
       <!-- Animated Logistics Elements -->
